@@ -1,5 +1,7 @@
 # Computational Linguistics: Exploring Symbolic Dynamics and other stuff
 
+![alt text](./vis1.png)
+
 TODO:
 - assign functions (eg probability distributions, spatial functions) and set theoretic attributes to words
 - Observe Zipfian properties
