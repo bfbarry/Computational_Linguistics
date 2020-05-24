@@ -35,3 +35,5 @@ Symbolic dynamics:
         - Maybe the flows are the symbols themselves, or at least pretty close; so partitioning maybe isn't necessary?
         - Some vectors are curved, others are not: each parition has a range of "bend"
 - Meta math: does vector field and partition location affect computation itself?  Like location of "+" and "-" on some abstract space.  (probably yes, see the number line)
+
+resource: https://www.nltk.org/book/
