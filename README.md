@@ -1,6 +1,6 @@
 # Computational Linguistics: Exploring Symbolic Dynamics and other stuff
 
-![alt text](./vis1.png)
+![alt text](./img/degree.png)
 
 TODO:
 - assign functions (eg probability distributions, spatial functions) and set theoretic attributes to words
