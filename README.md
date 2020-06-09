@@ -36,4 +36,9 @@ Symbolic dynamics:
         - Some vectors are curved, others are not: each parition has a range of "bend"
 - Meta math: does vector field and partition location affect computation itself?  Like location of "+" and "-" on some abstract space.  (probably yes, see the number line)
 
+Other:
+- generative grammar
+- Modelling memory: diffusion on language: need to find a way to perform PCA on sentences with respect to semantics.  
+    - and working backwards: with diffused sentence how to generate new semantic structures
+
 resource: https://www.nltk.org/book/
