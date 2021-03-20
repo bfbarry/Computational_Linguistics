@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Word Graph</title>
+        <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    </head>
+
+    <body style = "background-color:black;">
+		<script type="text/javascript">
+            "use strict";
+
+			//Width and height
+			let w = 10000;
+			let h = 10000;
+
+            fetch("./data/syn_graph/syn_graph_v.json")
+                .then(function(resp) {
+                    return resp.json();
+                })
+                .then(function(graph){
+
+			//Initialize a simple force layout, using the nodes and edges in graph
+			let force = d3.forceSimulation(graph.nodes)
+						  .force("charge", d3.forceManyBody().strength(-30))
+                          .force("link", d3.forceLink(graph.edges).id(function(d) { return d.word; })
+                                .distance(20))
+                          .force("center", d3.forceCenter().x(w/2).y(h/2));
+                   
+            //use colors for the edges
+            //let colors = d3.scaleOrdinal(d3.schemeCategory10);
+            //let colors = d3.scaleLinear().domain([0,30]).range(["yellow", "red"]);
+            //let colors = d3.scaleSequential().domain([0,52]).interpolator(d3.interpolateViridis);
+            let colors = {'pos':'blue','neu':'gray','neg':'red'}
+			//Create SVG element
+			let svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+                        .attr("height", h);
+                        
+            //arrow tips
+
+            // let arrows = svg.append("defs")
+            //     .selectAll(".arrows")
+            //     .data(graph.edges)
+            //     .enter()
+            // .append("marker") 
+            // .attr("id", function(d,i){
+            //     return 'arrow' + i; //<-- append index postion
+            //     })
+            // .attr('viewBox', '0 -5 10 10')
+            // .attr('refX', 27.6)
+            // .attr('refY',0)
+            // .attr('markerWidth', 2)
+            // .attr('markerHeight', 1.5)         
+            // .attr('orient', 'auto')
+            // .append('svg:path')
+            //     .attr('d', 'M0,-5L10,0L0,5')
+            //     .style("fill", 'black');    
+            
+            //Create edges as lines
+			let edges = svg.selectAll("line")
+				.data(graph.edges)
+				.enter()
+				.append("line")
+                .style("stroke", 'white')
+                .style("stroke-width", 0.5)
+                // .attr('marker-end', function(d,i){
+                //     return "url(#arrow"+i+")";})
+                ;
+            
+			//Create nodes as circles
+
+            let nodes = svg.selectAll("circle")
+				.data(graph.nodes)
+				.enter()
+				.append("circle")
+                .attr("r", 5)
+                // .attr("stroke", 'white')
+                // .style("stroke-width", .5)
+                .style("fill", function(d,i) {
+                    return colors[d.sentm];
+                });
+            
+            //text on nodes
+            // let text = svg.selectAll('text')
+            //         .data(graph.nodes)
+            //         .enter()
+            //         .append('text')
+            //         .style('font', '10px arial')
+            //         .attr("pointer-events", "none")
+            //         .attr("text-anchor", "middle");
+            
+            //drag 
+            let drag_handler = d3.drag()
+                .on("start", drag_start)
+                .on("drag", drag_drag)
+                .on("end", drag_end);	
+                
+            //same as using .call on the node variable as in https://bl.ocks.org/mbostock/4062045 
+            drag_handler(nodes)
+
+            //drag handler
+            //d is the node 
+            function drag_start(d) {
+            if (!d3.event.active) force.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+            }
+
+            function drag_drag(d) {
+            d.fx = d3.event.x;
+            d.fy = d3.event.y;
+            }
+
+            function drag_end(d) {
+            if (!d3.event.active) force.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+            }
+            
+			//Every time the simulation "ticks", this will be called
+			force.on("tick", function() {
+
+				edges.attr("x1", function(d) { return d.source.x; })
+					 .attr("y1", function(d) { return d.source.y; })
+					 .attr("x2", function(d) { return d.target.x; })
+					 .attr("y2", function(d) { return d.target.y; });
+			
+				nodes.attr("cx", function(d) { return d.x; })
+                     .attr("cy", function(d) { return d.y; });
+                     
+                // text.attr("x", function(d) { return d.x; })
+                //     .attr("dy", function(d) { return d.y; });
+                //     //.text( function (d) { return d.letter; });
+                
+            });
+
+            
+        })
+		</script>
+	</body>
+</html>
