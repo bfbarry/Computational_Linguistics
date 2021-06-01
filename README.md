@@ -1,14 +1,23 @@
-# Computational Linguistics: Exploring Symbolic Dynamics and other stuff
+# Linguistic Geometry, and Attempts at Novel Computational Linguistic Modeling
 
 ![alt text](./img/degree.png)
 
-TODO:
+![alt text](./img/noun_net.png)
+
+What is the structure and geometry behind [written] language (mostly from a graph theory perspective)? 
+
+Is there a relationship between sequential character level networks (meaning the network where any possible walk forms a word, e.g., "w->o->r->d") and semantic networks (synonym networks)?
+
+Some notebooks may come off as cryptic as I explore new topics.
+
+Another computational linguistics project: [Haiku bot](https://github.com/bfbarry/HaikuBot)
+
+Some TODO and questions:
 - assign functions (eg probability distributions, spatial functions) and set theoretic attributes to words
-- Observe Zipfian properties
 - Look at lifetime of words: when and why do words become 'archaic'? (is there a characteristic frequency that allows a word to propagate)
 - What kind of shift occurs between words from the dictionary vs encyclopaedia/internet?
 
-Symbolic dynamics:
+Some thoughts and questions on symbolic dynamics:
 - Plane partition defined as a [di]graph:
     - Nodes as initial conditions
      - For each word/letter/symbol, find its neighbors (i.e. the word/letter/symbol that can appropriately follow, based on its corpus)
@@ -40,5 +49,3 @@ Other:
 - generative grammar
 - Modelling memory: diffusion on language: need to find a way to perform PCA on sentences with respect to semantics.  
     - and working backwards: with diffused sentence how to generate new semantic structures
-
-resource: https://www.nltk.org/book/
